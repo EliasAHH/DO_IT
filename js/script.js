@@ -23,7 +23,7 @@ function openCard() {
 function autoplaySong() {
   let body = document.querySelector('body');
   let audio = document.createElement('audio');
-  audio.innerHTML = '<source src="./petapan.mp3" type="audio/mp3" />';
+  audio.innerHTML = '<source src="../public/petapan.mp3" type="audio/mp3" />';
   body.append(audio);
   audio.autoplay = true;
 }

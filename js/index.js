@@ -1,6 +1,3 @@
-let moon = document.querySelectorAll('.row')[2];
-moon.addEventListener('click', displayCard);
-
 window.requestAnimFrame = (function () {
   return (
     window.requestAnimationFrame ||
@@ -308,7 +305,7 @@ function reveal() {
 
   loop();
 
-  var w, h;
+  let w, h;
   if (window.innerWidth >= 1000) {
     w = 295;
     h = 185;
@@ -317,13 +314,10 @@ function reveal() {
     h = 155;
   }
 
-  var ifrm = document.createElement('iframe');
+  let ifrm = document.createElement('iframe');
   ifrm.setAttribute('src', 'https://www.youtube.com/embed/Zh6ofSFA06M');
-  //ifrm.style.width = `${w}px`;
-  //ifrm.style.height = `${h}px`;
   ifrm.style.border = 'none';
   document.querySelector('#video').appendChild(ifrm);
-  document.querySelector('#video').autoplay;
 }
 
 function displayCard() {
