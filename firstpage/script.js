@@ -1,30 +1,38 @@
-window.addEventListener('load', () => {
-  // noinspection JSUnresolvedVariable
-  let audioCtx = new (window.AudioContext || window.webkitAudioContext)();
-  let xhr = new XMLHttpRequest();
-  xhr.open('GET', './petapan.mp3');
-  xhr.responseType = 'arraybuffer';
-  xhr.addEventListener('load', () => {
-    let playsound = (audioBuffer) => {
-      let source = audioCtx.createBufferSource();
-      source.buffer = audioBuffer;
-      source.connect(audioCtx.destination);
-      source.loop = false;
-      source.start();
+let card = findsById('card');
+let openB = findsById('open');
+let closeB = findsById('close');
+let timer = null;
 
-      setTimeout(function () {
-        let t = document.createElement('p');
-        t.appendChild(
-          document.createTextNode(
-            new Date().toLocaleString() + ': Sound played'
-          )
-        );
-        document.querySelector('.output').appendChild(t);
-        playsound(audioBuffer);
-      }, 1000 + Math.random() * 2500);
-    };
+openB.addEventListener('click', openCard);
+closeB.addEventListener('click', closeCard);
 
-    audioCtx.decodeAudioData(xhr.response).then(playsound);
-  });
-  xhr.send();
-});
+function findsById(id) {
+  return document.getElementById(id);
+}
+
+function openCard() {
+  autoplaySong();
+  card.setAttribute('class', 'open-half');
+  if (timer) clearTimeout(timer);
+  timer = setTimeout(function () {
+    card.setAttribute('class', 'open-fully');
+    timer = null;
+  }, 1000);
+}
+
+function autoplaySong() {
+  let body = document.querySelector('body');
+  let audio = document.createElement('audio');
+  audio.innerHTML = '<source src="./petapan.mp3" type="audio/mp3" />';
+  body.append(audio);
+  audio.autoplay = true;
+}
+
+function closeCard() {
+  card.setAttribute('class', 'close-half');
+  if (timer) clearTimerout(timer);
+  timer = setTimeout(function () {
+    card.setAttribute('class', '');
+    timer = null;
+  }, 1000);
+}
